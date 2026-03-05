@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,12 +31,17 @@
     }
 
     a{ color:inherit; }
-
     .wrap{ max-width:1100px; margin:0 auto; padding:26px 18px 40px; }
 
     /* Top bar */
     .topbar{ display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:20px; }
-    .brand{ display:flex; align-items:center; gap:12px; }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:260px; }
+    .brand-logo{
+      height:26px;
+      width:auto;
+      display:block;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.35));
+    }
     .brand h1{ font-size:18px; letter-spacing:0.06em; margin:0; font-weight:900; }
     .brand .sub{ font-size:11px; color:rgba(255,255,255,0.65); letter-spacing:0.06em; font-weight:700; }
 
@@ -76,20 +80,23 @@
       text-transform:uppercase;
       letter-spacing:0.09em;
       text-decoration:none;
-      border:none;
+      border:1px solid rgba(255,255,255,0.12);   /* restored (needed for btn-shai border to show) */
       cursor:pointer;
       white-space:nowrap;
-      transition:transform 0.12s ease, filter 0.12s ease;
+      transition:transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+      background: rgba(255,255,255,0.04);
+      color:#fff;
     }
-    .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
-    .btn-vi{ background:var(--brand-blue); color:#fff; }
-    .btn-wsi{ background:var(--brand-green); color:#fff; }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); background: rgba(255,255,255,0.06); }
+    .btn-vi{ background:var(--brand-blue); border-color: rgba(255,255,255,0.12); color:#fff; }
+    .btn-wsi{ background:var(--brand-green); border-color: rgba(255,255,255,0.12); color:#fff; }
     .btn-shai{
-  background: rgba(110,117,138,0.22);
-  color:#fff;
-  border-color: rgba(255,255,255,0.16);
-}
+      background: rgba(110,117,138,0.22);
+      color:#fff;
+      border-color: rgba(255,255,255,0.16);
+    }
     .btn-shai:hover{ filter:brightness(1.12); }
+
     /* Hero */
     .hero{ padding:26px; display:grid; grid-template-columns: 1.15fr 0.85fr; gap:18px; }
     .pill{
@@ -113,6 +120,26 @@
     .hero .signal{ margin-top:10px; color:rgba(232,236,255,0.88); font-weight:700; }
 
     .hero-cta{ margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; }
+
+    /* Powered by row (matches your screenshot vibe) */
+    .powered-by{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:rgba(255,255,255,0.72);
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-size:11px;
+      font-weight:900;
+    }
+    .powered-by img{
+      height:18px;
+      width:auto;
+      display:block;
+      opacity:0.95;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+    }
 
     .snapshot{ padding:18px; border-radius:18px; border:1px solid rgba(255,255,255,0.10); background:rgba(0,0,0,0.18); }
     .snapshot h3{ margin:0 0 8px; font-size:15px; }
@@ -196,6 +223,9 @@
     .map-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start; margin-top:14px; }
     .map-box{ padding:14px; border-radius:18px; border:1px solid rgba(255,255,255,0.10); background:rgba(0,0,0,0.18); }
 
+    /* FIX: SVG sizing via CSS (no height="auto" attribute) */
+    .map-box svg{ width:100%; height:auto; display:block; }
+
     .tool-list{ margin:10px 0 0; padding-left:18px; color:rgba(255,255,255,0.80); font-size:13px; line-height:1.55; }
     .tool-list li{ margin:8px 0; }
 
@@ -208,16 +238,6 @@
     }
     .mini-roi .grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; color:#d0d4ef; font-size:13px; }
 
-    /* Modal */
-    .modal{ position:fixed; inset:0; background:rgba(0,0,0,0.70); display:none; align-items:center; justify-content:center; padding:18px; z-index:999; }
-    .modal.open{ display:flex; }
-    .modal-panel{ width:min(1100px, 96vw); height:min(720px, 88vh); background:#070a18; border:1px solid rgba(255,255,255,0.12); border-radius:18px; overflow:hidden; box-shadow: 0 40px 120px rgba(0,0,0,0.55); }
-    .modal-top{ display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.03); }
-    .modal-top .t{ font-size:12px; letter-spacing:0.10em; text-transform:uppercase; color:rgba(255,255,255,0.75); font-weight:900; }
-    .modal-top button{ background:rgba(255,255,255,0.06); color:#fff; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:8px 10px; cursor:pointer; }
-    .modal-top button:hover{ background:rgba(255,255,255,0.10); }
-    iframe{ width:100%; height:100%; border:none; }
-
     footer{ margin-top:22px; color:rgba(255,255,255,0.55); font-size:11.5px; line-height:1.55; }
 
     @media (max-width: 920px){
@@ -225,6 +245,7 @@
       .acc-inner{ grid-template-columns: 1fr; }
       .map-grid{ grid-template-columns: 1fr; }
       .hero h2{ font-size:36px; }
+      .nav{ gap:10px; }
     }
   </style>
 </head>
@@ -233,13 +254,14 @@
 
     <div class="topbar">
       <div class="brand">
+        <!-- FIX: VOL logo now actually called -->
+        <img class="brand-logo" src="vol-health-logo.png" alt="VOL Health logo" />
         <div>
           <h1>VOL HEALTH</h1>
           <div class="sub">STAFFHEALTH + ACCUSHIELD VERIFIED</div>
         </div>
       </div>
 
-      <!-- Top nav includes anchors per your requirement -->
       <nav class="nav" aria-label="Primary">
         <a href="#acc-vi">VI</a>
         <a href="#acc-wsi">WSI</a>
@@ -260,11 +282,18 @@
         <p class="signal">
           Then activate the <strong>Stability Engine</strong> to move north-east — reducing volatility now while strengthening long-term workforce stability.
         </p>
+
         <div class="hero-cta">
           <a class="btn btn-vi" href="volatility-index.html">View Volatility Index →</a>
           <a class="btn btn-wsi" href="wsi.html">View Workforce Stability Index →</a>
           <a class="btn btn-shai" href="shai.html" target="_blank" rel="noopener">View SHAI →</a>
           <a class="btn btn-shai" href="#stability-map">View Stability Map →</a>
+        </div>
+
+        <!-- FIX: Powered by logo row now actually called + styled like your screenshot -->
+        <div class="powered-by" aria-label="Powered by StaffHealth and Accushield Verified">
+          <span>Powered by:</span>
+          <img src="sh-av-logo.png" alt="StaffHealth + Accushield Verified" />
         </div>
       </div>
 
@@ -288,7 +317,7 @@
       </aside>
     </section>
 
-    <!-- CHOOSER (Accordion style, starts CLOSED, opens independently) -->
+    <!-- CHOOSER -->
     <section class="section card chooser" id="chooser">
       <div class="section-head">
         <h2>Choose your VOL Health™ view</h2>
@@ -379,7 +408,7 @@
       </div>
     </section>
 
-    <!-- STABILITY MAP (Corrected structure: two map-box siblings inside map-grid) -->
+    <!-- STABILITY MAP -->
     <section class="section card map-card" id="stability-map">
       <div class="section-head">
         <h2>VOL Health Stability Map</h2>
@@ -391,20 +420,15 @@
       </div>
 
       <div class="map-grid">
-        <!-- LEFT: SVG -->
         <div class="map-box">
-          <svg viewBox="0 0 520 420" width="100%" height="auto" role="img" aria-label="VOL Health Stability Map">
-
-            <!-- DEFINITIONS -->
+          <!-- FIX: removed height="auto" attribute -->
+          <svg viewBox="0 0 520 420" role="img" aria-label="VOL Health Stability Map">
             <defs>
-
-              <!-- background gradient -->
               <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#0d1224"/>
                 <stop offset="100%" stop-color="#141a33"/>
               </linearGradient>
 
-              <!-- glow for dots -->
               <filter id="dotGlow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="3" result="blur"/>
                 <feMerge>
@@ -413,20 +437,14 @@
                 </feMerge>
               </filter>
 
-              <!-- arrow head -->
               <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
                 <path d="M0,0 L0,6 L9,3 z" fill="rgba(255,255,255,0.55)"/>
               </marker>
-
             </defs>
 
-            <!-- background -->
             <rect x="0" y="0" width="520" height="420" rx="18" fill="url(#g1)" stroke="rgba(255,255,255,0.10)"/>
-
-            <!-- subtle NE success zone -->
             <rect x="260" y="60" width="180" height="120" rx="14" fill="rgba(46,139,87,0.08)"/>
 
-            <!-- grid -->
             <g stroke="rgba(255,255,255,0.10)" stroke-width="1">
               <line x1="80" y1="60" x2="80" y2="360"/>
               <line x1="170" y1="60" x2="170" y2="360"/>
@@ -442,23 +460,18 @@
               <line x1="80" y1="360" x2="440" y2="360"/>
             </g>
 
-            <!-- axes -->
             <g stroke="rgba(255,255,255,0.35)" stroke-width="2">
               <line x1="80" y1="360" x2="440" y2="360"/>
               <line x1="80" y1="360" x2="80" y2="60"/>
             </g>
 
-            <!-- quadrant labels -->
-            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial"
-               font-size="14"
-               fill="rgba(255,255,255,0.85)">
+            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="14" fill="rgba(255,255,255,0.85)">
               <text x="95" y="90">Acute Volatility</text>
               <text x="295" y="90">Operational Stability</text>
               <text x="95" y="210">Structural Instability</text>
               <text x="295" y="210">Managed Volatility</text>
             </g>
 
-            <!-- direction arrow -->
             <path d="M250 300 L430 110"
                   stroke="rgba(255,255,255,0.22)"
                   stroke-width="2.5"
@@ -466,50 +479,29 @@
                   stroke-linecap="round"
                   marker-end="url(#arrowHead)"/>
 
-            <text x="438" y="112"
-                  font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial"
-                  font-size="12"
-                  fill="rgba(255,255,255,0.62)">Target</text>
+            <text x="438" y="112" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="12" fill="rgba(255,255,255,0.62)">Target</text>
 
-            <!-- sample points -->
             <g filter="url(#dotGlow)">
-
-              <!-- worst -->
               <circle cx="150" cy="320" r="7" fill="#e63946" stroke="white" stroke-width="1.5"/>
-
-              <!-- developing -->
               <circle cx="220" cy="260" r="7" fill="#f2b705" stroke="white" stroke-width="1.5"/>
-
-              <!-- improving -->
               <circle cx="320" cy="230" r="7" fill="#1f57b8" stroke="white" stroke-width="1.5"/>
-
-              <!-- best -->
               <circle cx="400" cy="150" r="7" fill="#2e8b57" stroke="white" stroke-width="1.5"/>
-
             </g>
 
-            <!-- axis labels -->
-            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial"
-               font-size="12"
-               fill="rgba(255,255,255,0.75)">
+            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="12" fill="rgba(255,255,255,0.75)">
               <text x="250" y="400">VI (Volatility Control) →</text>
               <text x="18" y="210" transform="rotate(-90 18 210)">WSI (Workforce Stability) →</text>
             </g>
 
-            <!-- ticks -->
-            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial"
-               font-size="11"
-               fill="rgba(255,255,255,0.55)">
+            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="11" fill="rgba(255,255,255,0.55)">
               <text x="72" y="380">0</text>
               <text x="430" y="380">100</text>
               <text x="56" y="66">100</text>
               <text x="60" y="368">0</text>
             </g>
-
           </svg>
         </div>
 
-        <!-- RIGHT: Explanation + mini ROI -->
         <div class="map-box">
           <h3 style="margin:0 0 8px; font-size:18px;">How communities move north-east</h3>
           <ul class="tool-list">
@@ -539,15 +531,13 @@
     </section>
 
   </div>
-<script>
-    // Accordion: starts closed by default (no .open classes in markup)
-    // Opens independently (no "close others" logic).
+
+  <script>
     function toggleAcc(id){
       const el = document.getElementById(id);
       if(!el) return;
 
       const isOpen = el.classList.toggle('open');
-
       const header = el.querySelector('.acc-header');
       const body = el.querySelector('.acc-body');
 
@@ -555,7 +545,6 @@
       if(body) body.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
     }
 
-    // Allow Enter/Space to toggle when focused
     document.addEventListener('keydown', (e) => {
       const t = e.target;
       if(!t || !t.classList || !t.classList.contains('acc-header')) return;
